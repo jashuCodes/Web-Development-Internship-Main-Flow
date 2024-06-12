@@ -1,0 +1,46 @@
+function validateForm() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const contact = document.getElementById('contact').value;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const contactPattern = /^[0-9]{10}$/;
+
+    if (name === '') {
+        alert('Name must be filled out');
+        return false;
+    }
+    if (!emailPattern.test(email)) {
+        alert('Invalid email format');
+        return false;
+    }
+    if (!contactPattern.test(contact)) {
+        alert('Contact must be a 10-digit number');
+        return false;
+    }
+    return true;
+}
+
+function updateContent() {
+    document.getElementById('content').innerHTML = 'The content has been updated!';
+}
+
+function toggleDropdown() {
+    const dropdownContent = document.getElementById('dropdownContent');
+    if (dropdownContent.style.display === 'block') {
+        dropdownContent.style.display = 'none';
+    } else {
+        dropdownContent.style.display = 'block';
+    }
+}
+
+// Securely handle user input to prevent XSS attacks
+document.addEventListener('DOMContentLoaded', (event) => {
+    const form = document.getElementById('myForm');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (validateForm()) {
+            alert('Form submitted successfully!');
+            form.reset();
+        }
+    });
+});
